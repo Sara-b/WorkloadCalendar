@@ -45,7 +45,7 @@ session_start();
             </div>
 
             <!--logo start-->
-            <a href="index.html" class="logo">NOVY  <span class="lite">Dashboard charge de travail</span></a>
+            <a href="index.php" class="logo">NOVY  <span class="lite">Dashboard charge de travail</span></a>
             <!--logo end-->
 
             <div class="nav search-row" id="top_menu">
@@ -82,7 +82,7 @@ session_start();
                                 <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
                             </li>
                             <li>
-                                <a href="login.html"><i class="icon_key_alt"></i> Déconnexion</a>
+                                <a href="login.php"><i class="icon_key_alt"></i> Déconnexion</a>
                             </li>
                         </ul>
                     </li>
@@ -99,7 +99,7 @@ session_start();
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
                   <li class="active">
-                      <a class="" href="index.html">
+                      <a class="" href="index.php">
                           <i class="icon_house_alt"></i>
                           <span>Dashboard</span>
                       </a>
@@ -111,19 +111,19 @@ session_start();
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="students.html">Liste des Élèves</a></li>                          
-                          <li><a class="" href="tasks_management.html">Outils de gestion</a></li>
+                          <li><a class="" href="students.php">Liste des Élèves</a></li>                          
+                          <li><a class="" href="tasks_management.php">Outils de gestion</a></li>
                       </ul>
                   </li> 
                   <li>                     
-                      <a class="" href="stats.html">
+                      <a class="" href="stats.php">
                           <i class="icon_piechart"></i>
                           <span>Statistiques</span>
                       </a>               
                   </li>
                   
                   <li>
-                      <a href="profil.html" class="">
+                      <a href="profil.php" class="">
                           <i class="icon_documents_alt"></i>
                           <span>Profil</span>
                       </a>
@@ -142,7 +142,7 @@ session_start();
 				<div class="col-lg-12">
 					<h3 class="page-header"><i class="fa fa-user-md"></i> Profil</h3>
 					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+						<li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
 						<li><i class="fa fa-user-md"></i>Profil</li>
 					</ol>
 				</div>
@@ -153,7 +153,7 @@ session_start();
                     <div class="profile-widget profile-widget-info">
                           <div class="panel-body">
                             <div class="col-lg-2 col-sm-2">
-                              <h4><?php echo $_SESSION['first_name']." ".$_SESSION['last_name']; ?></h4>               
+                              <h4>Jenifer Smith</h4>               
                               <div class="follow-ava">
                                   <img src="img/profile-widget-avatar.jpg" alt="">
                               </div>

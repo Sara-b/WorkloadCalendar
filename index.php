@@ -55,7 +55,7 @@ session_start();
             </div>
 
             <!--logo start-->
-            <a href="index.html" class="logo">YNOV  <span class="lite">Dashboard charge de travail</span></a>
+            <a href="index.php" class="logo">YNOV  <span class="lite">Dashboard charge de travail</span></a>
             <!--logo end-->
 
             <div class="nav search-row" id="top_menu">
@@ -109,31 +109,31 @@ session_start();
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
                   <li class="active">
-                      <a class="" href="index.html">
+                      <a class="" href="index.php">
                           <i class="icon_house_alt"></i>
-                          <span>Emploi du temps</span>
+                          <span>Dashboard</span>
                       </a>
                   </li>
 				  <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="icon_document_alt"></i>
-                          <span>Ajouter un </span>
+                          <span>Gestion</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="students.html">Liste des Élèves</a></li>                          
-                          <li><a class="" href="tasks_management.html">Outils de gestion</a></li>
+                          <li><a class="" href="students.php">Liste des Élèves</a></li>                          
+                          <li><a class="" href="tasks_management.php">Outils de gestion</a></li>
                       </ul>
                   </li> 
                   <li>                     
-                      <a class="" href="stats.html">
+                      <a class="" href="stats.php">
                           <i class="icon_piechart"></i>
                           <span>Statistiques</span>
                       </a>               
                   </li>
                   
                   <li>
-                      <a href="profil.html" class="">
+                      <a href="profil.php" class="">
                           <i class="icon_documents_alt"></i>
                           <span>Profil</span>
                       </a>
@@ -153,7 +153,7 @@ session_start();
 				<div class="col-lg-12">
 					<h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
 					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+						<li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
 						<li><i class="fa fa-laptop"></i>Dashboard</li>						  	
 					</ol>
 				</div>
