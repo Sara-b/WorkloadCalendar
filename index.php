@@ -124,7 +124,9 @@ if (!isset($_SESSION['id'])){
                       </a>
                       <ul class="sub">
                           <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
-                          <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
+                          <?php if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) { ?>                          
+                            <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
+                          <?php } ?>
                       </ul>
                   </li> 
                   <li>

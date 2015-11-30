@@ -5,32 +5,6 @@ if (!isset($_SESSION['id'])){
   header('location:login.php');
 }
 
-//On vérifie si une action est passée
-if(isset($_POST['action'])){
-  $action = $_POST['action'];
-}elseif(isset($_GET['action'])){
-  $action = $_GET['action'];
-}else{
-  $action = "";
-}
-//Si il y a une action, on execute le script correspondant
-if($action!=""){
-  switch ($action) {
-    case 'view':
-      get_event($_POST);
-      break;
-    case 'update':
-      update_event($_POST); 
-      break;
-    case 'delete':
-      delete_event($_GET);
-      break;
-    
-    default:
-      # code...
-      break;
-  }
-}
 //$promotion_id = search($search_promo);
 $events = get_eventsByPromotion();
 $promotions = get_promotion();
@@ -155,8 +129,10 @@ $promotions = get_promotion();
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
-                          <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
+                          <li><a class="" href="list_events.php">Liste des évènements</a></li>
+                          <?php if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) { ?>                          
+                            <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
+                          <?php } ?>
                       </ul>
                   </li> 
                   <li>
@@ -192,7 +168,6 @@ $promotions = get_promotion();
                     <div class="col-md-7">
                         <label class="col-md-2 control-label" for="group_event">Promotion</label>
                       
-
                       <form method="get" action"<?php get_eventsByPromotion() ?>">
                         <div class="col-md-4">
                             <select id="group_event" name="promotion_id" class="form-control">
@@ -202,14 +177,13 @@ $promotions = get_promotion();
                                 <?php } else{ ?>
                                   <option value="<?php echo $promotion['id']; ?>"><?php echo $promotion['title']; ?></option>
 
-                                <?php } ?>
-                               
-                             <?php } ?>
+                                <?php }
+                                 } ?>
                             </select>
                         </div>
 
-                        <div class="col-md-3">
-                          <button class="btn btn-primary btn-block" type="submit">Recherer</button>
+                        <div class="col-md-">
+                          <button class="btn btn-primary " type="submit">Recherer</button>
                         </div>
                       </form>
                     </div>
@@ -248,11 +222,11 @@ $promotions = get_promotion();
                                  <td><?php echo $event['hoursOfWork'];?></td>
                                  <td>
                                   <div class="btn-group">
-                                      <a class="btn btn-primary" name="action" value="view" href="#"><i class="icon_plus_alt2"></i></a>
-                                    <?php // if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) { ?>
+                                      <a class="btn btn-primary" href="event.php?<?php echo $event['id'] ?>"><i class="icon_plus_alt2"></i></a>
+                                    <?php if ($_SESSION['role'] == 1 || $_SESSION['id'] == $event['id_professeur']) { ?>
                                       <a class="btn btn-success" name="action" value="update" href="#"><i class="icon_check_alt2"></i></a>
-                                      <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                                      <?php //} ?>
+                                      <a class="btn btn-danger" href="<?php delete_event($event['id']) ?>"><i class="icon_close_alt2"></i></a>
+                                      <?php } ?>
                                   </div>
                                   </td>
                               </tr>
