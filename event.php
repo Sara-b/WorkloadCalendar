@@ -5,7 +5,7 @@ if (!isset($_SESSION['id'])){
   header('location:login.php');
 }
 
-$event = get_event($_GET);
+$event[] = get_event($_GET);
 ?>
 
 <!DOCTYPE html>
@@ -152,22 +152,22 @@ $event = get_event($_GET);
                                       <div class="panel-body bio-graph-info">
                                           <div class="row">
                                               <div class="bio-row">
-                                                  <p><span>Titre </span>: <?php echo $event['title']; ?></p>
+                                                  <p><span>Titre </span>: <?php echo $event[0][0]['title']; ?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Professeur </span>: <?php echo $event['first_name']." ".$event['last_name']; ?></p>
+                                                  <p><span>Professeur </span>: <?php echo $event[0][0]['first_name']." ".$event[0][0]['last_name']; ?></p>
                                               </div>                    
                                               <div class="bio-row">
-                                                  <p><span>Date de début </span>: <?php echo $event['start_date']; ?></p>
+                                                  <p><span>Date de début </span>: <?php echo $event[0][0]['start_date']; ?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Date de fin </span>: <?php echo $event['end_date']; ?></p>
+                                                  <p><span>Date de fin </span>: <?php echo $event[0][0]['end_date']; ?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Charge de travail </span>: <?php echo $event['hoursOfWork']; ?></p>
+                                                  <p><span>Charge </span>: <?php echo $event[0][0]['hoursOfWork']; ?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Desciption </span>: <?php echo $event['description']; ?></p>
+                                                  <p><span>Desciption </span>: <?php echo $event[0][0]['description']; ?></p>
                                               </div>
                                           </div>
                                       </div>

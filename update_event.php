@@ -1,8 +1,12 @@
 <?php
 session_start();
+include('models/Events.php');
 if (!isset($_SESSION['id'])){
   header('location:login.php');
 }
+
+$event[] = get_event($_GET);
+$promotions = get_promotion();
 ?>
 
 <!DOCTYPE html>
@@ -76,7 +80,7 @@ if (!isset($_SESSION['id'])){
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="profil.php"><i class="icon_profile"></i> Mon profil</a>
+                                <a href="#"><i class="icon_profile"></i> Mon profil</a>
                             </li>
                             <li>
                                 <a href="models/deconnexion.php"><i class="icon_key_alt"></i> Déconnexion</a>
@@ -126,54 +130,115 @@ if (!isset($_SESSION['id'])){
           </div>
       </aside>
       <!--sidebar end-->
-      
+
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-		  <div class="row">
-				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa-user-md"></i> Profil</h3>
-					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="index.php">Accueil</a></li>
-						<li><i class="fa fa-user-md"></i>Profil</li>
-					</ol>
-				</div>
-			</div>
-              <div class="row">
-                <!-- profile-widget -->
-                <div class="panel-body">
-                              <div class="tab-content">
-                                  <!-- profile -->
-                                  <div id="profile" class="tab-pane active">
-                                    <section class="panel">
-                                      <div class="panel-body bio-graph-info">
-                                          <div class="row">
-                                              <div class="bio-row">
-                                                  <p><span>Prénom </span>: <?php echo $_SESSION['first_name']; ?></p>
-                                              </div>
-                                              <div class="bio-row">
-                                                  <p><span>Nom </span>: <?php echo $_SESSION['last_name']; ?></p>
-                                              </div>                    
-                                              <div class="bio-row">
-                                                  <p><span>Email </span>: <?php echo $_SESSION['email']; ?></p>
-                                              </div>
-                                              <div class="bio-row">
-                                                  <p><span>Promotion </span>: <?php echo $_SESSION['promotion']; ?></p>
-                                              </div>
-                                              <div class="bio-row">
-                                                  <p><span>Spécialisation </span>: <?php echo $_SESSION['specialization']; ?></p>
-                                              </div>
-                                          </div>
-                                      </div>
-                                    </section>
-                                      <section>
-                                          <div class="row">                                              
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="page-header"><i class="fa fa-user-md"></i> Evenement</h3>
+          <ol class="breadcrumb">
+            <li><i class="fa fa-home"></i><a href="index.php">Accueil</a></li>
+            <li><i class="fa fa-user-md"></i>Evenement</li>
+          </ol>
+        </div>
+      </div>
+              <!-- page start-->
+              <!-- edit-profile -->
+                                  <div id="edit-profile" class="tab-pane">
+                                    <section class="panel">                                          
+                                          <div class="panel-body bio-graph-info">
+                                              <h1> Profile Info</h1>
+                                              <form class="form-horizontal" method="post" action="update_event">
+              <fieldset>
+
+              <!-- Form AJOUT EVENT -->
+              <legend>Ajouter un évènement</legend>
+
+              <?php if(!empty($_GET['message']) && $_GET['message'] == "success") { ?>
+              <div class="alert alert-info">
+                <strong>Succès!</strong> L'évènement a correctement été mis à jour.
+              </div>
+              <?php } ?>
+              <?php if(!empty($_GET['message']) && $_GET['message'] == "fail") { ?>
+              <div class="alert alert-danger">
+                <strong>Une erreur est survenue.</strong> L'évènement n'a pas été ajouté correctement.
+              </div>
+              <?php } ?>
+              <?php if(!empty($_GET['message']) && $_GET['message'] == "too_many_hours") { ?>
+              <div class="alert alert-danger">
+                <strong>Echec !</strong> L'évènement n'a pas été ajouté, trop d'heures de travail sont déjà prévues sur cette période. Réduisez le nombre d'heures ou choisissez une autre période.
+              </div>
+              <?php } ?>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="title_event">Titre</label>  
+                <div class="col-md-4">
+                <input id="title_event" value="<?php echo $event[0][0]['title']; ?>" name="title_event" type="text" placeholder="Titre de l'évènement" class="form-control input-md" required="">
+                  
+                </div>
+              </div>
+
+              <!-- Textarea -->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="description_event">Explications</label>
+                <div class="col-md-4">                     
+                  <textarea class="form-control" id="description_event" name="description_event"><?php echo $event[0][0]['description']; ?></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="startDate">Date de début</label>
+                  <div class='col-sm-2'>
+                      <input type='date' class="form-control input-md" required="" name="startDate"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="endDate">Date de fin</label>
+                  <div class='col-sm-2'>
+                      <input type='date' class="form-control input-md" required="" name="endDate"/>
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="hours_event">Heures nécessaires à la réalisation</label>  
+                <div class="col-md-4">
+                <input id="hours_event" name="hours_event" value="<?php echo $event[0][0]['hoursOfWork']; ?>" type="text" placeholder="Nombre d'heures (entières)" class="form-control input-md" required="">
+                  
+                </div>
+              </div>
+
+              <!-- Select Basic -->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="group_event">Promotion</label>
+                <div class="col-md-4">
+                  <select id="group_event" name="promotion_id" class="form-control">
+                    <?php  foreach ($promotions as $promotion) { 
+                      if ($_GET['promotion_id'] == $promotion['id']) { ?>
+                        <option selected="selected" value="<?php echo $promotion['id']; ?>"><?php echo $promotion['title']; ?></option>
+                      <?php } else{ ?>
+                        <option value="<?php echo $promotion['id']; ?>"><?php echo $promotion['title']; ?></option>
+
+                      <?php } 
+                      } ?>
+                  </select>
+              </div>
+              </div>
+
+                                                  <div class="form-group">
+                                                      <div class="col-lg-offset-2 col-lg-10">
+                                                          <button type="submit" class="btn btn-primary">Save</button>
+                                                          <a  href="list_events.php"><button type="button" class="btn btn-danger">Cancel</button></a>
+                                                      </div>
+                                                  </div>
+                                              </form>
                                           </div>
                                       </section>
                                   </div>
-                              </div>
-                          </div>
-              </div>
+              <!-- page end-->
           </section>
       </section>
       <!--main content end-->
@@ -184,18 +249,8 @@ if (!isset($_SESSION['id'])){
     <script src="js/bootstrap.min.js"></script>
     <!-- nice scroll -->
     <script src="js/jquery.scrollTo.min.js"></script>
-    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-    <!-- jquery knob -->
-    <script src="assets/jquery-knob/js/jquery.knob.js"></script>
-    <!--custome script for all page-->
+    <script src="js/jquery.nicescroll.js" type="text/javascript"></script><!--custome script for all page-->
     <script src="js/scripts.js"></script>
-
-  <script>
-
-      //knob
-      $(".knob").knob();
-
-  </script>
 
 
   </body>

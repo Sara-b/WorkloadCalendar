@@ -215,10 +215,11 @@ $promotions = get_promotion();
                                  <td><?php echo $event['end_date'];?></td>
                                  <td><?php echo $event['hoursOfWork'];?></td>
                                  <td>
+                                  <?php //var_dump($event[0]) ?>
                                   <div class="btn-group">
-                                      <a class="btn btn-primary" href="event.php?<?php echo $event['id'] ?>"><i class="icon_plus_alt2"></i></a>
+                                      <a class="btn btn-success" href="event.php?id=<?php echo $event['0'] ?>"><i class="icon_plus_alt2"></i></a>
                                     <?php if ($_SESSION['role'] == 1 || $_SESSION['id'] == $event['id_professeur']) { ?>
-                                      <a class="btn btn-success" name="action" value="update" href="#"><i class="icon_check_alt2"></i></a>
+                                      <a class="btn btn-primary" href="update_event.php?id=<?php echo $event['0'] ?>"><i class="icon_check_alt2"></i></a>
                                       <a class="btn btn-danger" href="<?php delete_event($event['id']) ?>"><i class="icon_close_alt2"></i></a>
                                       <?php } ?>
                                   </div>
