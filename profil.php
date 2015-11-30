@@ -142,7 +142,7 @@ if (!isset($_SESSION['id'])){
 						<li><i class="fa fa-user-md"></i>Profil</li>
 					</ol>
 				</div>
-			</div><?php// var_dump($_SESSION);?>
+			</div>
               <div class="row">
                 <!-- profile-widget -->
                 <div class="panel-body">

@@ -2,7 +2,7 @@
 include 'connexion_bdd.php';
 
 
-function get_eventsByPromotion($param)
+function get_eventsByPromotion()
 {
     global $bdd;
             
@@ -10,8 +10,7 @@ function get_eventsByPromotion($param)
 		$req = $bdd->prepare('SELECT * FROM event 
 							LEFT JOIN user ON event.id_professeur = user.id
 	    					WHERE id_group=:id_promotion');  
-	   
-	   
+	   //var_dump($_POST); die();
 	    $req->bindParam(':id_promotion', $_SESSION['id_promotion']);
 	    $req->execute();
 	    $events = $req->fetchAll();
@@ -74,6 +73,18 @@ function add_event($param){
 		$message = 'fail';
 	}
 	header('Location:../tasks_management.php?message='.$message); 
+}
+
+function delete_event($param)
+{
+	global $bdd;
+        die();
+    $req = $bdd->prepare('DELETE FROM event WHERE id=:id');
+    $req->bindParam(':id', $param['id']);
+    $req->execute();
+    $event = $req->fetch(); 
+    
+    return $event;
 }
 
 function get_events_json(){
