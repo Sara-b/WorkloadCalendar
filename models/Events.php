@@ -58,8 +58,28 @@ function update_event($param)
 {
 }
 
-function get_event($param)
-{
+
+function add_event($param){
+	$req = $bdd->prepare('INSERT INTO event (id_professeur, id_promotion, title, description, start_date, end_date, hoursOfWork, id_category)
+			 VALUES (:id_professeur,:id_promotion,:title,:description,:startDate,:endDate,:hours,:idcategory)');
+	//on passe en paramètre de la requete nos variables $_POST
+	try{
+		$reponse = $req->execute(array(
+		  'id_professeur' => 1,
+		  'id_promotion' => $_POST['group_event'],
+		  'title' => $_POST['title_event'],
+		  'description' => $_POST['description_event'],
+		  'startDate' => $_POST['startDate'],
+		  'endDate' => $_POST['endDate'],
+		  'hours' => $_POST['hours_event'],
+		  'idcategory' => $_POST['category_event'],
+		  ));
+		$message = 'success';
+	}
+	catch (Exception $e) {
+		$message = 'fail';
+	}
+	header('Location:../add_event.php?message='.$message); 
 }
 
 function delete_event($param)
@@ -74,5 +94,27 @@ function delete_event($param)
     return $event;
 }
 
+function get_events_json(){
+	 global $bdd;
+	 // Query that retrieves events
+	 $requete = $bdd->prepare("SELECT * FROM event WHERE id_promotion=:id_promotion");
+	 $requete->execute(array(
+	 				'id_promotion' => $_SESSION['id_promotion']
+				  	));
+
+	 $data = $requete->fetchAll(PDO::FETCH_ASSOC);
+	 $array_eventObject = array();
+	 
+	 foreach ($data as $key => $value) {
+	 	$array_eventObject[$key] = array(
+	 		'id' => $value['id'],
+	 		'title' => $value['title'],
+	 		'start' => $value['start_date'],
+	 		'end' => $value['end_date'],
+	 		);
+	 }
+	 // sending the encoded result to success page
+	 echo json_encode($array_eventObject);
+}
 
 ?>

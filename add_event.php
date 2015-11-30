@@ -1,3 +1,10 @@
+<?php
+session_start(); 
+include('models/Events.php');
+if (!isset($_SESSION['id'])){
+  header('location:login.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -63,19 +70,13 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar.png">
                             </span>
-                            <span class="username">Gordon Ramsay</span>
+                            <span class="username"><?php echo $_SESSION['first_name']." ".$_SESSION['last_name']; ?></span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
                                 <a href="#"><i class="icon_profile"></i> Mon profil</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_mail_alt"></i> Ma messagerie</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
                             </li>
                             <li>
                                 <a href="login.php"><i class="icon_key_alt"></i> Déconnexion</a>
@@ -97,27 +98,20 @@
                   <li class="active">
                       <a class="" href="index.php">
                           <i class="icon_house_alt"></i>
-                          <span>Dashboard</span>
+                          <span>Emploi du temps</span>
                       </a>
                   </li>
           <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="icon_document_alt"></i>
-                          <span>Gestion</span>
+                          <span>Evenements</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="students.php">Liste des Élèves</a></li>                          
-                          <li><a class="" href="tasks_management.php">Outils de gestion</a></li>
+                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
+                          <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
                       </ul>
                   </li> 
-                  <li>                     
-                      <a class="" href="stats.php">
-                          <i class="icon_piechart"></i>
-                          <span>Statistiques</span>
-                      </a>               
-                  </li>
-                  
                   <li>
                       <a href="profil.php" class="">
                           <i class="icon_documents_alt"></i>
@@ -155,6 +149,13 @@
 
               <div class="alert alert-info">
                 <strong>Succès!</strong> L'évènement a correctement été ajouté.
+              </div>
+              
+              <?php } ?>
+              <?php if(!empty($_GET['message']) && $_GET['message'] == "fail") { ?>
+
+              <div class="alert alert-danger">
+                <strong>Une erreur est survenue.</strong> L'évènement n'a pas été ajouté correctement.
               </div>
               
               <?php } ?>

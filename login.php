@@ -2,7 +2,6 @@
 session_start();
 require 'models/User.php';
 include("models/connexion_bdd.php");
-var_dump($_SESSION);
 if(isset($_SESSION['id']) && $_SESSION['id']>0){
         header("location:index.php");
     }

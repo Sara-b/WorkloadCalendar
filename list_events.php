@@ -155,8 +155,8 @@ $promotions = get_promotion();
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="students.php">Liste des évènements</a></li>                          
-                          <li><a class="" href="tasks_management.php">Ajouter un évènement</a></li>
+                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
+                          <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
                       </ul>
                   </li> 
                   <li>

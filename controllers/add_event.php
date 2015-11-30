@@ -18,12 +18,13 @@
 <body>
 <?php
 // lancement de la requete
-$req = $bdd->prepare('INSERT INTO event (id_professeur, id_group, title, description, start_date, end_date, hoursOfWork, id_category)
-				 VALUES (:id_professeur,:idgroup,:title,:description,:startDate,:endDate,:hours,:idcategory)');
+$req = $bdd->prepare('INSERT INTO event (id_professeur, id_promotion, title, description, start_date, end_date, hoursOfWork, id_category)
+				 VALUES (:id_professeur,:id_promotion,:title,:description,:startDate,:endDate,:hours,:idcategory)');
 		//on passe en paramètre de la requete nos variables $_POST
+	try{
 		$reponse = $req->execute(array(
 		  'id_professeur' => 1,
-		  'idgroup' => $_POST['group_event'],
+		  'id_promotion' => $_POST['group_event'],
 		  'title' => $_POST['title_event'],
 		  'description' => $_POST['description_event'],
 		  'startDate' => $_POST['startDate'],
@@ -31,8 +32,13 @@ $req = $bdd->prepare('INSERT INTO event (id_professeur, id_group, title, descrip
 		  'hours' => $_POST['hours_event'],
 		  'idcategory' => $_POST['category_event'],
 		  ));
+		$message = 'success';
+	}
 
-header('Location:../tasks_management.php?message=success'); 
+	catch (Exception $e){
+		$message = 'fail';
+	}
+	header('Location:../add_event.php?message='.$message); 
 ?>
 </body>
 </html>
