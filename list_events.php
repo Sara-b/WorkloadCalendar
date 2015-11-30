@@ -210,7 +210,7 @@ $promotions = get_promotion();
                                 <tr>
                                  <td><?php echo $event['first_name'].' '.$event['last_name'];?></td>
                                  <td><?php echo $event['title'];?></td>
-                                 <td><?php echo $event['title'];?></td>
+                                 <td><?php echo $event['description'];?></td>
                                  <td><?php echo $event['start_date'];?></td>
                                  <td><?php echo $event['end_date'];?></td>
                                  <td><?php echo $event['hoursOfWork'];?></td>

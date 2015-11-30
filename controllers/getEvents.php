@@ -50,7 +50,8 @@ include("../models/connexion_bdd.php");
  		'title' => $value['title'],
  		'start' => $value['start_date'],
  		'end' => $value['end_date'],
- 		'color' => $color
+ 		'color' => $color,
+		'url' => 'event.php?id='.$value['id']
  		);
  }
  // sending the encoded result to success page
