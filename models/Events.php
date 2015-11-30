@@ -47,9 +47,6 @@ function update_event($param)
 {
 }
 
-function delete_event($param)
-{
-}
 
 function add_event($param){
 	$req = $bdd->prepare('INSERT INTO event (id_professeur, id_promotion, title, description, start_date, end_date, hoursOfWork, id_category)
@@ -68,11 +65,10 @@ function add_event($param){
 		  ));
 		$message = 'success';
 	}
-
-	catch {
+	catch (Exception $e) {
 		$message = 'fail';
 	}
-	header('Location:../tasks_management.php?message='.$message); 
+	header('Location:../add_event.php?message='.$message); 
 }
 
 function delete_event($param)

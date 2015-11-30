@@ -94,12 +94,6 @@ if (!isset($_SESSION['id'])){
                                 <a href="profil.php"><i class="icon_profile"></i> Mon profil</a>
                             </li>
                             <li>
-                                <a href="#"><i class="icon_mail_alt"></i> Ma messagerie</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
-                            </li>
-                            <li>
                                 <a href="models/deconnexion.php"><i class="icon_key_alt"></i> Déconnexion</a>
                             </li>
                         </ul>
@@ -129,8 +123,8 @@ if (!isset($_SESSION['id'])){
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="students.php">Liste des évènements</a></li>                          
-                          <li><a class="" href="tasks_management.php">Ajouter un évènement</a></li>
+                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
+                          <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
                       </ul>
                   </li> 
                   <li>
@@ -196,104 +190,6 @@ if (!isset($_SESSION['id'])){
                
             </div>
         </div>
-        
-
-              <!-- project team & activity start -->
-          <div class="row">
-            <div class="col-md-4 portlets">
-              <!-- Widget -->
-              <div class="panel panel-default">
-        <div class="panel-heading">
-                  <div class="pull-left">Message</div>
-                  <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
-                  </div>  
-                  <div class="clearfix"></div>
-                </div>
-
-                <div class="panel-body">
-                  <!-- Widget content -->
-                  <div class="padd sscroll">
-                    
-                    <ul class="chats">
-
-                      <!-- Chat by us. Use the class "by-me". -->
-                      <li class="by-me">
-                        <!-- Use the class "pull-left" in avatar -->
-                        <div class="avatar pull-left">
-                          <img src="img/user.png" alt=""/>
-                        </div>
-
-                        <div class="chat-content">
-                          <!-- In meta area, first include "name" and then "time" -->
-                          <div class="chat-meta">John Smith <span class="pull-right">3 hours ago</span></div>
-                          Vivamus diam elit diam, consectetur dapibus adipiscing elit.
-                          <div class="clearfix"></div>
-                        </div>
-                      </li> 
-
-                      <!-- Chat by other. Use the class "by-other". -->
-                      <li class="by-other">
-                        <!-- Use the class "pull-right" in avatar -->
-                        <div class="avatar pull-right">
-                          <img src="img/user2.png" alt=""/>
-                        </div>
-
-                        <div class="chat-content">
-                          <!-- In the chat meta, first include "time" then "name" -->
-                          <div class="chat-meta">3 hours ago <span class="pull-right">Jenifer Smith</span></div>
-                          Vivamus diam elit diam, consectetur fconsectetur dapibus adipiscing elit.
-                          <div class="clearfix"></div>
-                        </div>
-                      </li>   
-
-                      <li class="by-me">
-                        <div class="avatar pull-left">
-                          <img src="img/user.png" alt=""/>
-                        </div>
-
-                        <div class="chat-content">
-                          <div class="chat-meta">John Smith <span class="pull-right">4 hours ago</span></div>
-                          Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
-                          <div class="clearfix"></div>
-                        </div>
-                      </li>  
-
-                      <li class="by-other">
-                        <!-- Use the class "pull-right" in avatar -->
-                        <div class="avatar pull-right">
-                          <img src="img/user2.png" alt=""/>
-                        </div>
-
-                        <div class="chat-content">
-                          <!-- In the chat meta, first include "time" then "name" -->
-                          <div class="chat-meta">3 hours ago <span class="pull-right">Jenifer Smith</span></div>
-                          Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
-                          <div class="clearfix"></div>
-                        </div>
-                      </li>                                                                                  
-
-                    </ul>
-
-                  </div>
-                  <!-- Widget footer -->
-                  <div class="widget-foot">
-                      
-                      <form class="form-inline">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Type your message here...">
-            </div>
-                        <button type="submit" class="btn btn-info">Send</button>
-                      </form>
-
-
-                  </div>
-                </div>
-
-
-              </div> 
-            </div>
 
                   <div class="col-lg-8">
                       <!--Project Activity start-->

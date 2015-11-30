@@ -35,10 +35,10 @@ $req = $bdd->prepare('INSERT INTO event (id_professeur, id_promotion, title, des
 		$message = 'success';
 	}
 
-	catch {
+	catch (Exception $e){
 		$message = 'fail';
 	}
-	header('Location:../tasks_management.php?message='.$message); 
+	header('Location:../add_event.php?message='.$message); 
 ?>
 </body>
 </html>

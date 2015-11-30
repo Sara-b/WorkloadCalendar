@@ -79,12 +79,6 @@ if (!isset($_SESSION['id'])){
                                 <a href="#"><i class="icon_profile"></i> Mon profil</a>
                             </li>
                             <li>
-                                <a href="#"><i class="icon_mail_alt"></i> Ma messagerie</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
-                            </li>
-                            <li>
                                 <a href="models/deconnexion.php"><i class="icon_key_alt"></i> Déconnexion</a>
                             </li>
                         </ul>
@@ -114,8 +108,8 @@ if (!isset($_SESSION['id'])){
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="students.php">Liste des évènements</a></li>                          
-                          <li><a class="" href="tasks_management.php">Ajouter un évènement</a></li>
+                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
+                          <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
                       </ul>
                   </li> 
                   <li>
