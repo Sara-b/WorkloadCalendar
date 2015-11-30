@@ -209,7 +209,7 @@ $promotions = get_promotion();
                         </div>
 
                         <div class="col-md-3">
-                          <button class="btn btn-primary btn-block" type="submit">Recherer</button>
+                          <button class="btn btn-primary btn-block" type="submit">Rechercher</button>
                         </div>
                       </form>
                     </div>
@@ -231,14 +231,15 @@ $promotions = get_promotion();
                            <tbody>
                               <tr>
                                  <th><i class="icon_profile"></i> Professeur</th>
-                                 <th><i class="icon_profile"></i> Titre</th>
-                                 <th><i class="icon_profile"></i> Description</th>
+                                 <th>Titre</th>
+                                 <th></i> Description</th>
                                  <th><i class="icon_calendar"></i> Debut</th>
                                  <th><i class="icon_calendar"></i> Fin</th>
-                                 <th><i class="icon_profile"></i> Charge</th>
+                                 <th></i> Charge</th>
                                  <th><i class="icon_cogs"></i> Action</th>
                               </tr>
-                               <?php foreach ($events as $event) { ?>
+                               <?php 
+                                foreach ($events as $event) { ?>
                                 <tr>
                                  <td><?php echo $event['first_name'].' '.$event['last_name'];?></td>
                                  <td><?php echo $event['title'];?></td>

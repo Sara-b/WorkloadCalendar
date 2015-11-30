@@ -146,18 +146,19 @@ if (!isset($_SESSION['id'])){
               <legend>Ajouter un évènement</legend>
 
               <?php if(!empty($_GET['message']) && $_GET['message'] == "success") { ?>
-
               <div class="alert alert-info">
                 <strong>Succès!</strong> L'évènement a correctement été ajouté.
               </div>
-              
               <?php } ?>
               <?php if(!empty($_GET['message']) && $_GET['message'] == "fail") { ?>
-
               <div class="alert alert-danger">
                 <strong>Une erreur est survenue.</strong> L'évènement n'a pas été ajouté correctement.
               </div>
-              
+              <?php } ?>
+              <?php if(!empty($_GET['message']) && $_GET['message'] == "too_many_hours") { ?>
+              <div class="alert alert-danger">
+                <strong>Echec !</strong> L'évènement n'a pas été ajouté, trop d'heures de travail sont déjà prévues sur cette période. Réduisez le nombre d'heures ou choisissez une autre période.
+              </div>
               <?php } ?>
               <!-- Select Basic -->
               <div class="form-group">
