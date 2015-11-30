@@ -120,12 +120,6 @@ $promotions = get_promotion();
                                 <a href="profil.php"><i class="icon_profile"></i> Mon profil</a>
                             </li>
                             <li>
-                                <a href="#"><i class="icon_mail_alt"></i> Ma messagerie</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
-                            </li>
-                            <li>
                                 <a href="models/deconnexion.php"><i class="icon_key_alt"></i> Déconnexion</a>
                             </li>
                         </ul>
@@ -155,7 +149,7 @@ $promotions = get_promotion();
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
+                          <li><a class="" href="list_events.php?promotion_id=1">Liste des évènements</a></li>                          
                           <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
                       </ul>
                   </li> 
@@ -243,7 +237,7 @@ $promotions = get_promotion();
                                 <tr>
                                  <td><?php echo $event['first_name'].' '.$event['last_name'];?></td>
                                  <td><?php echo $event['title'];?></td>
-                                 <td><?php echo $event['title'];?>description</td>
+                                 <td><?php echo $event['title'];?></td>
                                  <td><?php echo $event['start_date'];?></td>
                                  <td><?php echo $event['end_date'];?></td>
                                  <td><?php echo $event['hoursOfWork'];?></td>

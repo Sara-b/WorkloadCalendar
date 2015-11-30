@@ -123,7 +123,7 @@ if (!isset($_SESSION['id'])){
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
+                          <li><a class="" href="list_events.php?promotion_id=1">Liste des évènements</a></li>                          
                           <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
                       </ul>
                   </li> 

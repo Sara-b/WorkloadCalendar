@@ -76,7 +76,7 @@ if (!isset($_SESSION['id'])){
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> Mon profil</a>
+                                <a href="profil.php"><i class="icon_profile"></i> Mon profil</a>
                             </li>
                             <li>
                                 <a href="models/deconnexion.php"><i class="icon_key_alt"></i> Déconnexion</a>
@@ -108,7 +108,7 @@ if (!isset($_SESSION['id'])){
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
+                          <li><a class="" href="list_events.php?promotion_id=1">Liste des évènements</a></li>                          
                           <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
                       </ul>
                   </li> 
@@ -157,9 +157,6 @@ if (!isset($_SESSION['id'])){
                                               </div>
                                               <div class="bio-row">
                                                   <p><span>Promotion </span>: <?php echo $_SESSION['promotion']; ?></p>
-                                              </div>
-                                              <div class="bio-row">
-                                                  <p><span>Groupe </span>: <?php echo $_SESSION['group']; ?></p>
                                               </div>
                                               <div class="bio-row">
                                                   <p><span>Spécialisation </span>: <?php echo $_SESSION['specialization']; ?></p>

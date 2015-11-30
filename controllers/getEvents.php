@@ -31,13 +31,13 @@ include("../models/connexion_bdd.php");
 	 	if($workHours > ($totalHours/100 * 7)){
  			$color = '#C30101';
 	 	}
-	 	else if($workHours < ($totalHours/100 * 7) && $workHours > ($totalHours/100 * 4)){
+	 	else if($workHours <= ($totalHours/100 * 7) && $workHours > ($totalHours/100 * 4)){
 	 		$color = '#C4430B';
 	 	}
-	 	else if($workHours < ($totalHours/100 * 4) && $workHours > ($totalHours/100 * 2)){
+	 	else if($workHours <= ($totalHours/100 * 4) && $workHours > ($totalHours/100 * 2.6)){
 	 		$color = '#F4A723';
 	 	}
-	 	else if($workHours <= ($totalHours/100 * 2)){
+	 	else if($workHours <= ($totalHours/100 * 2.6)){
 	 		$color = '#9CD023';
 	 	}
 	}

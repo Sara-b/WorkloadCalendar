@@ -33,7 +33,6 @@
 				$_SESSION['role']=$donnees[0]['role'];
 				$_SESSION['id_promotion']=$donnees[0]['id_promotion'];
 				$_SESSION['promotion']=$donnees[0]['title'];
-				$_SESSION['group']=$donnees[0]['group'];
 				$_SESSION['specialization']=$donnees[0]['specialization'];
 				header('location:../index.php');
 			} else
