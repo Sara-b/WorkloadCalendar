@@ -185,30 +185,44 @@ $promotions = get_promotion();
 					</ol>
 				</div>
 			</div>
+              
               <!-- page start-->
               <?php
                 if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) { ?>
-                  <div class="form-group">
-                  <label class="col-md-4 control-label" for="group_event">Promotion</label>
-                  <div class="col-md-4">
-
-                    <select id="group_event" name="promotion_id" class="form-control">
-                      <?php $value = 0;
-                       foreach ($promotions as $promotion) {
-                       $value ++; ?>
-                        <option value="<?php echo $value ?>"><?php echo $promotion['title']; ?></option>
-                     <?php } ?>
+                    <div class="col-md-7">
+                        <label class="col-md-2 control-label" for="group_event">Promotion</label>
                       
-                    </select>
-                  </div>
-                </div>
 
+                      <form method="get" action"<?php get_eventsByPromotion() ?>">
+                        <div class="col-md-4">
+                            <select id="group_event" name="promotion_id" class="form-control">
+                              <?php  foreach ($promotions as $promotion) { 
+                                if ($_GET['promotion_id'] == $promotion['id']) { ?>
+                                  <option selected="selected" value="<?php echo $promotion['id']; ?>"><?php echo $promotion['title']; ?></option>
+                                <?php } else{ ?>
+                                  <option value="<?php echo $promotion['id']; ?>"><?php echo $promotion['title']; ?></option>
+
+                                <?php } ?>
+                               
+                             <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                          <button class="btn btn-primary btn-block" type="submit">Recherer</button>
+                        </div>
+                      </form>
+                    </div>
+                  
                 <div class="row">
                   <div class="col-lg-12">
                   </div>
                 </div><?php
-                } ?>
-                
+                } ?>    
+                <div class="row">
+                  <div class="col-md-12">
+                  </div>
+                </div>
 
               <div class="row">
                   <div class="col-lg-12">
@@ -235,8 +249,10 @@ $promotions = get_promotion();
                                  <td>
                                   <div class="btn-group">
                                       <a class="btn btn-primary" name="action" value="view" href="#"><i class="icon_plus_alt2"></i></a>
+                                    <?php // if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) { ?>
                                       <a class="btn btn-success" name="action" value="update" href="#"><i class="icon_check_alt2"></i></a>
-                                      <a class="btn btn-danger" name="action" value="delete" href="#"><i class="icon_close_alt2"></i></a>
+                                      <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
+                                      <?php //} ?>
                                   </div>
                                   </td>
                               </tr>

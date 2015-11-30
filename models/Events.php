@@ -6,16 +6,27 @@ function get_eventsByPromotion()
 {
     global $bdd;
             
-    //if ($_SESSION['role'] == 3) {
+    if ($_SESSION['role'] == 3) {
 		$req = $bdd->prepare('SELECT * FROM event 
 							LEFT JOIN user ON event.id_professeur = user.id
 	    					WHERE id_group=:id_promotion');  
-	   //var_dump($_POST); die();
+	   //var_dump($_GET); die();
 	    $req->bindParam(':id_promotion', $_SESSION['id_promotion']);
 	    $req->execute();
 	    $events = $req->fetchAll();
     	return $events;
-	//}
+	}
+
+    if ($_SESSION['role'] == 2 || $_SESSION['role'] == 2) {
+        $req = $bdd->prepare('SELECT * FROM event 
+                            LEFT JOIN user ON event.id_professeur = user.id
+                            WHERE id_group=:id_promotion');  
+       //var_dump($_GET); die();
+        $req->bindParam(':id_promotion', $_GET['promotion_id']);
+        $req->execute();
+        $events = $req->fetchAll();
+        return $events;
+    }
 }
 
 function get_promotion()
