@@ -86,6 +86,7 @@
 			if($donnees=$req->fetchAll()){  
 			$_SESSION['id']=$donnees[0]['id'];
 			$_SESSION['email']=$donnees[0]['email'];
+			$_SESSION['id_promotion']=$donnees[0]['id_promotion'];
 			return $_SESSION['id'];
 			}
 			else return false;

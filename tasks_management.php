@@ -158,6 +158,13 @@
               </div>
               
               <?php } ?>
+              <?php if(!empty($_GET['message']) && $_GET['message'] == "fail") { ?>
+
+              <div class="alert alert-danger">
+                <strong>Une erreur est survenue.</strong> L'évènement n'a pas été ajouté correctement.
+              </div>
+              
+              <?php } ?>
               <!-- Select Basic -->
               <div class="form-group">
                 <label class="col-md-4 control-label" for="category_event">Catégorie</label>
