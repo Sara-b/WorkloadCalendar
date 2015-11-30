@@ -29,6 +29,33 @@ function get_eventsByPromotion()
     }
 }
 
+function get_eventsByPromotionPost($promotion_id)
+{
+    global $bdd;
+            
+    if ($_SESSION['role'] == 3) {
+		$req = $bdd->prepare('SELECT * FROM event 
+							LEFT JOIN user ON event.id_professeur = user.id
+	    					WHERE event.id_promotion=:id_promotion');  
+	   //var_dump($_GET); die();
+	    $req->bindParam(':id_promotion', $_SESSION['id_promotion']);
+	    $req->execute();
+	    $events = $req->fetchAll();
+    	return $events;
+	}
+
+    if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) {
+        $req = $bdd->prepare('SELECT * FROM event 
+                            LEFT JOIN user ON event.id_professeur = user.id
+                            WHERE event.id_promotion=:id_promotion');  
+       //var_dump($_GET); die();
+        $req->bindParam(':id_promotion', $promotion_id);
+        $req->execute();
+        $events = $req->fetchAll();
+        return $events;
+    }
+}
+
 function get_promotion()
 {
     global $bdd;
@@ -62,12 +89,15 @@ function get_event($param)
 
 function update_event($param)
 {
+	global $bdd;
+
+	
 }
 
 
 function add_event($param){
-	$req = $bdd->prepare('INSERT INTO event (id_professeur, id_promotion, title, description, start_date, end_date, hoursOfWork, id_category)
-			 VALUES (:id_professeur,:id_promotion,:title,:description,:startDate,:endDate,:hours,:idcategory)');
+	$req = $bdd->prepare('INSERT INTO event (id_professeur, id_promotion, title, description, start_date, end_date, hoursOfWork)
+			 VALUES (:id_professeur,:id_promotion,:title,:description,:startDate,:endDate,:hours)');
 	//on passe en paramètre de la requete nos variables $_POST
 	try{
 		$reponse = $req->execute(array(
@@ -77,8 +107,7 @@ function add_event($param){
 		  'description' => $_POST['description_event'],
 		  'startDate' => $_POST['startDate'],
 		  'endDate' => $_POST['endDate'],
-		  'hours' => $_POST['hours_event'],
-		  'idcategory' => $_POST['category_event'],
+		  'hours' => $_POST['hours_event']
 		  ));
 		$message = 'success';
 	}
@@ -95,9 +124,6 @@ function delete_event($event_id)
     $req = $bdd->prepare('DELETE FROM event WHERE id=:id');
     $req->bindParam(':id', $event_id);
     $req->execute();
-    $event = $req->fetch(); 
-    
-    return $event;
 }
 
 function get_events_json(){

@@ -6,8 +6,8 @@ include("../models/connexion_bdd.php");
 
 ?>
 <?php
+$events = get_eventsByPromotionPost($_POST['promotion_id']);
 
-$events = get_eventsByPromotion();
 $totalHoursOfWorkOnPeriod = 0;
  foreach ($events as $event) {
   if($event['end_date'] > $_POST['startDate']){
@@ -55,34 +55,33 @@ $totalHoursOfWorkOnPeriod = 0;
   $time = $date2->diff($date1);
   $hours = $time->h;
   $totalHours = $hours + ($time->days*24);
-  
+
  if($totalHoursOfWorkOnPeriod > ($totalHours/100 * 7) || ($totalHoursOfWorkOnPeriod + $_POST['hours_event']) > ($totalHours/100 * 7)){
     $message = "too_many_hours";
  }
  else {
+  try{
 // lancement de la requete
-$req = $bdd->prepare('INSERT INTO event (id_professeur, id_promotion, title, description, start_date, end_date, hoursOfWork)
-				 VALUES (:id_professeur,:id_promotion,:title,:description,:startDate,:endDate,:hours)');
-		//on passe en paramètre de la requete nos variables $_POST
-	try{
-		$reponse = $req->execute(array(
-		  'id_professeur' => $_SESSION['id'],
-		  'id_promotion' => $_POST['promotion_id'],
-		  'title' => $_POST['title_event'],
-		  'description' => $_POST['description_event'],
-		  'startDate' => $_POST['startDate'],
-		  'endDate' => $_POST['endDate'],
-		  'hours' => $_POST['hours_event']
-		  ));
-		
-		$message = 'success';
-	}
+  $requete = $bdd->prepare("UPDATE event
+                  SET id_promotion=:id_promo, title=:title, description=:description, start_date=:start_date, end_date=:end_date, hoursOfWork=:hours
+                  WHERE id=:id");
+      // l'execution 
+      $requete->bindParam(':id_promo', $_POST['promotion_id']);
+      $requete->bindParam(':title', $_POST['title_event']);
+      $requete->bindParam(':description', $_POST['description_event']);
+      $requete->bindParam(':start_date', $_POST['startDate']);
+      $requete->bindParam(':end_date', $_POST['endDate']);
+      $requete->bindParam(':hours', $_POST['hours_event']);
+      $requete->bindParam(':id', $_GET['id']);
+      $requete->execute();
+      $message = 'success';
+    }
 
-	catch (Exception $e){
-		$message = 'fail';
-	}
+  catch (Exception $e){
+    $message = 'fail';
+  }
 
  }
-	header('Location:../add_event.php?message='.$message); 
+  header('Location:../update_event.php?id='.$_GET['id'].'&message='.$message); 
 
 ?>

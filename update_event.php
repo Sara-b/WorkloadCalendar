@@ -112,7 +112,7 @@ $promotions = get_promotion();
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
+                          <li><a class="" href="list_events.php?promotion_id=1">Liste des évènements</a></li>                          
                           <?php if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) { ?>                          
                             <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
                           <?php } ?>
@@ -145,15 +145,15 @@ $promotions = get_promotion();
       </div>
               <!-- page start-->
               <!-- edit-profile -->
-                                  <div id="edit-profile" class="tab-pane">
-                                    <section class="panel">                                          
-                                          <div class="panel-body bio-graph-info">
-                                              <h1> Profile Info</h1>
-                                              <form class="form-horizontal" method="post" action="update_event">
+    <div id="edit-profile" class="tab-pane">
+      <section class="panel">                                          
+            <div class="panel-body bio-graph-info">
+                <h1> Profile Info</h1>
+                <form class="form-horizontal" method="post" action="<?php echo 'controllers/update_event.php?id='.$_GET['id']; ?>">
               <fieldset>
 
               <!-- Form AJOUT EVENT -->
-              <legend>Ajouter un évènement</legend>
+              <legend>Modifier un évènement</legend>
 
               <?php if(!empty($_GET['message']) && $_GET['message'] == "success") { ?>
               <div class="alert alert-info">
@@ -162,12 +162,12 @@ $promotions = get_promotion();
               <?php } ?>
               <?php if(!empty($_GET['message']) && $_GET['message'] == "fail") { ?>
               <div class="alert alert-danger">
-                <strong>Une erreur est survenue.</strong> L'évènement n'a pas été ajouté correctement.
+                <strong>Une erreur est survenue.</strong> L'évènement n'a pas été mis à jour correctement.
               </div>
               <?php } ?>
               <?php if(!empty($_GET['message']) && $_GET['message'] == "too_many_hours") { ?>
               <div class="alert alert-danger">
-                <strong>Echec !</strong> L'évènement n'a pas été ajouté, trop d'heures de travail sont déjà prévues sur cette période. Réduisez le nombre d'heures ou choisissez une autre période.
+                <strong>Echec !</strong> Trop d'heures de travail sont déjà prévues sur cette période. Réduisez le nombre d'heures ou choisissez une autre période.
               </div>
               <?php } ?>
 
@@ -191,14 +191,14 @@ $promotions = get_promotion();
               <div class="form-group">
                 <label class="col-md-4 control-label" for="startDate">Date de début</label>
                   <div class='col-sm-2'>
-                      <input type='date' class="form-control input-md" required="" name="startDate"/>
+                      <input type='date' class="form-control input-md" value="<?php echo $event[0][0]['start_date']; ?>" required="" name="startDate"/>
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-md-4 control-label" for="endDate">Date de fin</label>
                   <div class='col-sm-2'>
-                      <input type='date' class="form-control input-md" required="" name="endDate"/>
+                      <input type='date' class="form-control input-md" value="<?php echo $event[0][0]['end_date']; ?>" required="" name="endDate"/>
                 </div>
               </div>
 
@@ -228,16 +228,16 @@ $promotions = get_promotion();
               </div>
               </div>
 
-                                                  <div class="form-group">
-                                                      <div class="col-lg-offset-2 col-lg-10">
-                                                          <button type="submit" class="btn btn-primary">Save</button>
-                                                          <a  href="list_events.php"><button type="button" class="btn btn-danger">Cancel</button></a>
-                                                      </div>
-                                                  </div>
-                                              </form>
-                                          </div>
-                                      </section>
-                                  </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <a  href="list_events.php?promotion_id=1"><button type="button" class="btn btn-danger">Cancel</button></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
               <!-- page end-->
           </section>
       </section>
