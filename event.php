@@ -1,12 +1,13 @@
 <?php
-session_start(); 
+session_start();
 include('models/Events.php');
 if (!isset($_SESSION['id'])){
   header('location:login.php');
 }
 
-  $promotions = get_promotion();
+$event = get_event($_GET);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,7 +18,7 @@ if (!isset($_SESSION['id'])){
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>Ynov - Charge de travail</title>
+    <title>Novy - Charge de travail</title>
 
     <!-- Bootstrap CSS -->    
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -50,7 +51,7 @@ if (!isset($_SESSION['id'])){
             </div>
 
             <!--logo start-->
-            <a href="index.php" class="logo">YNOV  <span class="lite">Dashboard charge de travail</span></a>
+            <a href="index.php" class="logo">NOVY  <span class="lite">Dashboard charge de travail</span></a>
             <!--logo end-->
 
             <div class="nav search-row" id="top_menu">
@@ -78,7 +79,7 @@ if (!isset($_SESSION['id'])){
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="profil.php"><i class="icon_profile"></i> Mon profil</a>
+                                <a href="#"><i class="icon_profile"></i> Mon profil</a>
                             </li>
                             <li>
                                 <a href="models/deconnexion.php"><i class="icon_key_alt"></i> Déconnexion</a>
@@ -132,107 +133,53 @@ if (!isset($_SESSION['id'])){
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-		  <div class="row">
-				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa fa-bars"></i> Outils de gestion</h3>
-					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
-						<li><i class="fa fa-bars"></i>Gestion</li>
-						<li><i class="fa fa-square-o"></i>Outils de gestion</li>
-					</ol>
-				</div>
-			</div>
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="page-header"><i class="fa fa-user-md"></i> Evenement</h3>
+          <ol class="breadcrumb">
+            <li><i class="fa fa-home"></i><a href="index.php">Accueil</a></li>
+            <li><i class="fa fa-user-md"></i>Evenement</li>
+          </ol>
+        </div>
+      </div>
               <!-- page start-->
-              <form class="form-horizontal" method="post" action="controllers/add_event.php">
-              <fieldset>
-
-              <!-- Form AJOUT EVENT -->
-              <legend>Ajouter un évènement</legend>
-
-              <?php if(!empty($_GET['message']) && $_GET['message'] == "success") { ?>
-              <div class="alert alert-info">
-                <strong>Succès!</strong> L'évènement a correctement été ajouté.
-              </div>
-              <?php } ?>
-              <?php if(!empty($_GET['message']) && $_GET['message'] == "fail") { ?>
-              <div class="alert alert-danger">
-                <strong>Une erreur est survenue.</strong> L'évènement n'a pas été ajouté correctement.
-              </div>
-              <?php } ?>
-              <?php if(!empty($_GET['message']) && $_GET['message'] == "too_many_hours") { ?>
-              <div class="alert alert-danger">
-                <strong>Echec !</strong> L'évènement n'a pas été ajouté, trop d'heures de travail sont déjà prévues sur cette période. Réduisez le nombre d'heures ou choisissez une autre période.
-              </div>
-              <?php } ?>
-
-              <!-- Text input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="title_event">Titre</label>  
-                <div class="col-md-4">
-                <input id="title_event" name="title_event" type="text" placeholder="Titre de l'évènement" class="form-control input-md" required="">
-                  
-                </div>
-              </div>
-
-              <!-- Textarea -->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="description_event">Explications</label>
-                <div class="col-md-4">                     
-                  <textarea class="form-control" id="description_event" name="description_event"></textarea>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="startDate">Date de début</label>
-                  <div class='col-sm-2'>
-                      <input type='date' class="form-control input-md" required="" name="startDate"/>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="endDate">Date de fin</label>
-                  <div class='col-sm-2'>
-                      <input type='date' class="form-control input-md" required="" name="endDate"/>
-                </div>
-              </div>
-
-              <!-- Text input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="hours_event">Heures nécessaires à la réalisation</label>  
-                <div class="col-md-4">
-                <input id="hours_event" name="hours_event" type="text" placeholder="Nombre d'heures (entières)" class="form-control input-md" required="">
-                  
-                </div>
-              </div>
-
-              <!-- Select Basic -->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="group_event">Promotion</label>
-                <div class="col-md-4">
-                  <select id="group_event" name="promotion_id" class="form-control">
-                    <?php  foreach ($promotions as $promotion) { 
-                      if ($_GET['promotion_id'] == $promotion['id']) { ?>
-                        <option selected="selected" value="<?php echo $promotion['id']; ?>"><?php echo $promotion['title']; ?></option>
-                      <?php } else{ ?>
-                        <option value="<?php echo $promotion['id']; ?>"><?php echo $promotion['title']; ?></option>
-
-                      <?php } 
-                      } ?>
-                  </select>
-              </div>
-              </div>
-
-              <!-- Button -->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="submit"></label>
-                <div class="col-md-4">
-                  <button type="submit" id="submit" name="submit" class="btn btn-primary">Valider</button>
-                </div>
-              </div>
-
-              </fieldset>
-              </form>
-
+              <div class="row">
+              <div class="panel-body">
+                              <div class="tab-content">
+                                  <!-- profile -->
+                                  <div id="profile" class="tab-pane active">
+                                    <section class="panel">
+                                      <div class="panel-body bio-graph-info">
+                                          <div class="row">
+                                              <div class="bio-row">
+                                                  <p><span>Titre </span>: <?php echo $event['title']; ?></p>
+                                              </div>
+                                              <div class="bio-row">
+                                                  <p><span>Professeur </span>: <?php echo $event['first_name']." ".$event['last_name']; ?></p>
+                                              </div>                    
+                                              <div class="bio-row">
+                                                  <p><span>Date de début </span>: <?php echo $event['start_date']; ?></p>
+                                              </div>
+                                              <div class="bio-row">
+                                                  <p><span>Date de fin </span>: <?php echo $event['end_date']; ?></p>
+                                              </div>
+                                              <div class="bio-row">
+                                                  <p><span>Charge de travail </span>: <?php echo $event['hoursOfWork']; ?></p>
+                                              </div>
+                                              <div class="bio-row">
+                                                  <p><span>Desciption </span>: <?php echo $event['description']; ?></p>
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </section>
+                                      <section>
+                                          <div class="row">                                              
+                                          </div>
+                                      </section>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
               <!-- page end-->
           </section>
       </section>

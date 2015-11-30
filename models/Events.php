@@ -42,16 +42,17 @@ function get_promotion()
 	//}
 }
 
-function search($mot){
-        global $bdd;
-
-        if(isset($mot) && $mot != "") // on vérifie d'abord l'existence du POST.
-        {$req = $bdd->prepare("SELECT * FROM promotion WHERE LOWER(title) LIKE LOWER('%$mot%')");
-            $req->execute();
-            $resultat = $req->fetchAll();
-
-            return $resultat;
-         }
+function get_event()
+{
+    global $bdd;
+            
+    $req = $bdd->prepare('SELECT * FROM event 
+                        LEFT JOIN user ON event.id_professeur = user.id '); 
+   
+    $req->bindParam(':event_id', $event_id);
+    $req->execute();
+    $event = $req->fetchAll();
+    return $event;
 }
 
 function update_event($param)
@@ -82,12 +83,12 @@ function add_event($param){
 	header('Location:../add_event.php?message='.$message); 
 }
 
-function delete_event($param)
+function delete_event($event_id)
 {
 	global $bdd;
-        die();
+       // die();
     $req = $bdd->prepare('DELETE FROM event WHERE id=:id');
-    $req->bindParam(':id', $param['id']);
+    $req->bindParam(':id', $event_id);
     $req->execute();
     $event = $req->fetch(); 
     

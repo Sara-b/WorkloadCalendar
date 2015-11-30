@@ -108,8 +108,15 @@ if (!isset($_SESSION['id'])){
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
+<<<<<<< HEAD
+                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
+                          <?php if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) { ?>                          
+                            <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
+                          <?php } ?>
+=======
                           <li><a class="" href="list_events.php?promotion_id=1">Liste des évènements</a></li>                          
                           <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
+>>>>>>> c98be16e9b3f61698f5ebdd01d257e906333c70c
                       </ul>
                   </li> 
                   <li>
