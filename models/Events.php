@@ -51,7 +51,7 @@ function get_event($param)
                         LEFT JOIN user ON event.id_professeur = user.id
                         WHERE event.id=:event_id '); 
    
-    var_dump($param);
+    //var_dump($param);
     $req->bindParam(':event_id', $param['id']); 
     $req->execute();
     $event = $req->fetchAll();

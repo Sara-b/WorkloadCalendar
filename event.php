@@ -79,7 +79,7 @@ $event[] = get_event($_GET);
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> Mon profil</a>
+                                <a href="profil.php"><i class="icon_profile"></i> Mon profil</a>
                             </li>
                             <li>
                                 <a href="models/deconnexion.php"><i class="icon_key_alt"></i> Déconnexion</a>
@@ -111,7 +111,7 @@ $event[] = get_event($_GET);
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="list_events.php">Liste des évènements</a></li>                          
+                          <li><a class="" href="list_events.php?promotion_id=1">Liste des évènements</a></li>                          
                           <?php if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) { ?>                          
                             <li><a class="" href="add_event.php">Ajouter un évènement</a></li>
                           <?php } ?>
