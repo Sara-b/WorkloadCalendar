@@ -8,7 +8,6 @@ include("../models/connexion_bdd.php");
 <?php
 // List of events
  $json = array();
-$_SESSION['id_promotion'] = 1;
  // Query that retrieves events
  $requete = $bdd->prepare("SELECT * FROM event WHERE id_promotion=:id_promotion");
  $requete->execute(array(
@@ -32,20 +31,20 @@ $_SESSION['id_promotion'] = 1;
 	 	if($workHours > ($totalHours/100 * 7)){
  			$color = '#C30101';
 	 	}
-	 	else if($workHours < ($totalHours/100 * 7) && $workHours > ($totalHours/100 * 4)){
+	 	else if($workHours <= ($totalHours/100 * 7) && $workHours > ($totalHours/100 * 4)){
 	 		$color = '#C4430B';
 	 	}
-	 	else if($workHours < ($totalHours/100 * 4) && $workHours > ($totalHours/100 * 2)){
+	 	else if($workHours <= ($totalHours/100 * 4) && $workHours > ($totalHours/100 * 2.6)){
 	 		$color = '#F4A723';
 	 	}
-	 	else if($workHours <= ($totalHours/100 * 2)){
+	 	else if($workHours <= ($totalHours/100 * 2.6)){
 	 		$color = '#9CD023';
 	 	}
 	}
  	else {
  		$color = '#3BA4D1';
  	}
-	
+
  	$array_eventObject[$key] = array(
  		'id' => $value['id'],
  		'title' => $value['title'],

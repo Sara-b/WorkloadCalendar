@@ -78,10 +78,10 @@ if (!isset($_SESSION['id'])){
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> Mon profil</a>
+                                <a href="profil.php"><i class="icon_profile"></i> Mon profil</a>
                             </li>
                             <li>
-                                <a href="login.php"><i class="icon_key_alt"></i> Déconnexion</a>
+                                <a href="models/deconnexion.php"><i class="icon_key_alt"></i> Déconnexion</a>
                             </li>
                         </ul>
                     </li>
@@ -150,18 +150,19 @@ if (!isset($_SESSION['id'])){
               <legend>Ajouter un évènement</legend>
 
               <?php if(!empty($_GET['message']) && $_GET['message'] == "success") { ?>
-
               <div class="alert alert-info">
                 <strong>Succès!</strong> L'évènement a correctement été ajouté.
               </div>
-              
               <?php } ?>
               <?php if(!empty($_GET['message']) && $_GET['message'] == "fail") { ?>
-
               <div class="alert alert-danger">
                 <strong>Une erreur est survenue.</strong> L'évènement n'a pas été ajouté correctement.
               </div>
-              
+              <?php } ?>
+              <?php if(!empty($_GET['message']) && $_GET['message'] == "too_many_hours") { ?>
+              <div class="alert alert-danger">
+                <strong>Echec !</strong> L'évènement n'a pas été ajouté, trop d'heures de travail sont déjà prévues sur cette période. Réduisez le nombre d'heures ou choisissez une autre période.
+              </div>
               <?php } ?>
 
               <!-- Text input-->

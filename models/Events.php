@@ -9,7 +9,7 @@ function get_eventsByPromotion()
     if ($_SESSION['role'] == 3) {
 		$req = $bdd->prepare('SELECT * FROM event 
 							LEFT JOIN user ON event.id_professeur = user.id
-	    					WHERE id_group=:id_promotion');  
+	    					WHERE event.id_promotion=:id_promotion');  
 	   //var_dump($_GET); die();
 	    $req->bindParam(':id_promotion', $_SESSION['id_promotion']);
 	    $req->execute();
@@ -17,10 +17,10 @@ function get_eventsByPromotion()
     	return $events;
 	}
 
-    if ($_SESSION['role'] == 2 || $_SESSION['role'] == 2) {
+    if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) {
         $req = $bdd->prepare('SELECT * FROM event 
                             LEFT JOIN user ON event.id_professeur = user.id
-                            WHERE id_group=:id_promotion');  
+                            WHERE event.id_promotion=:id_promotion');  
        //var_dump($_GET); die();
         $req->bindParam(':id_promotion', $_GET['promotion_id']);
         $req->execute();

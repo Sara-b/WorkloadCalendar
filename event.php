@@ -152,22 +152,22 @@ $event = get_event($_GET);
                                       <div class="panel-body bio-graph-info">
                                           <div class="row">
                                               <div class="bio-row">
-                                                  <p><span>Prénom </span>: <?php echo $_SESSION['first_name']; ?></p>
+                                                  <p><span>Titre </span>: <?php echo $event['title']; ?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Nom </span>: <?php echo $_SESSION['last_name']; ?></p>
+                                                  <p><span>Professeur </span>: <?php echo $event['first_name']." ".$event['last_name']; ?></p>
                                               </div>                    
                                               <div class="bio-row">
-                                                  <p><span>Email </span>: <?php echo $_SESSION['email']; ?></p>
+                                                  <p><span>Date de début </span>: <?php echo $event['start_date']; ?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Promotion </span>: <?php echo $_SESSION['promotion']; ?></p>
+                                                  <p><span>Date de fin </span>: <?php echo $event['end_date']; ?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Groupe </span>: <?php echo $_SESSION['group']; ?></p>
+                                                  <p><span>Charge de travail </span>: <?php echo $event['hoursOfWork']; ?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Spécialisation </span>: <?php echo $_SESSION['specialization']; ?></p>
+                                                  <p><span>Desciption </span>: <?php echo $event['description']; ?></p>
                                               </div>
                                           </div>
                                       </div>
