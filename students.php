@@ -1,3 +1,40 @@
+<?php
+session_start(); 
+include('models/Events.php');
+if (!isset($_SESSION['id'])){
+  header('location:login.php');
+}
+
+//On vérifie si une action est passée
+if(isset($_POST['action'])){
+  $action = $_POST['action'];
+}elseif(isset($_GET['action'])){
+  $action = $_GET['action'];
+}else{
+  $action = "";
+}
+//Si il y a une action, on execute le script correspondant
+if($action!=""){
+  switch ($action) {
+    case 'view':
+      get_event($_POST);
+      break;
+    case 'update':
+      update_event($_POST); 
+      break;
+    case 'delete':
+      delete_event($_GET);
+      break;
+    
+    default:
+      # code...
+      break;
+  }
+}
+//$promotion_id = search($search_promo);
+$events = get_eventsByPromotion();
+$promotions = get_promotion();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +45,7 @@
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>Ynov - Charge de travail</title>
+    <title>Novy - Charge de travail</title>
 
     <!-- Bootstrap CSS -->    
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,11 +54,22 @@
     <!--external css-->
     <!-- font icon -->
     <link href="css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />    
+    <!-- full calendar css-->
+    <link href="assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+  <link href="assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+    <!-- easy pie chart-->
+    <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
     <!-- Custom styles -->
+  <link rel="stylesheet" href="css/fullcalendar.css">
+  <link href="css/widgets.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
-
+  <link href="css/xcharts.min.css" rel=" stylesheet"> 
+  <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -33,7 +81,7 @@
   <body>
   <!-- container section start -->
   <section id="container" class="">
-      <!--header start-->
+     
       
       <header class="header dark-bg">
             <div class="toggle-nav">
@@ -41,7 +89,7 @@
             </div>
 
             <!--logo start-->
-            <a href="index.php" class="logo">YNOV  <span class="lite">Dashboard charge de travail</span></a>
+            <a href="index.php" class="logo">NOVY  <span class="lite">Dashboard charge de travail</span></a>
             <!--logo end-->
 
             <div class="nav search-row" id="top_menu">
@@ -63,13 +111,13 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar.png">
                             </span>
-                            <span class="username">Gordon Ramsay</span>
+                            <span class="username"><?php echo $_SESSION['first_name']." ".$_SESSION['last_name']; ?></span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> Mon profil</a>
+                                <a href="profil.php"><i class="icon_profile"></i> Mon profil</a>
                             </li>
                             <li>
                                 <a href="#"><i class="icon_mail_alt"></i> Ma messagerie</a>
@@ -78,7 +126,7 @@
                                 <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
                             </li>
                             <li>
-                                <a href="login.php"><i class="icon_key_alt"></i> Déconnexion</a>
+                                <a href="models/deconnexion.php"><i class="icon_key_alt"></i> Déconnexion</a>
                             </li>
                         </ul>
                     </li>
@@ -97,27 +145,20 @@
                   <li class="active">
                       <a class="" href="index.php">
                           <i class="icon_house_alt"></i>
-                          <span>Dashboard</span>
+                          <span>Emploi du temps</span>
                       </a>
                   </li>
-                  <li class="sub-menu">
+          <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="icon_document_alt"></i>
-                          <span>Gestion</span>
+                          <span>Evenements</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="students.php">Liste des Élèves</a></li>                          
-                          <li><a class="" href="tasks_management.php">Outils de gestion</a></li>
+                          <li><a class="" href="students.php">Liste des évènements</a></li>                          
+                          <li><a class="" href="tasks_management.php">Ajouter un évènement</a></li>
                       </ul>
                   </li> 
-                  <li>                     
-                      <a class="" href="stats.php">
-                          <i class="icon_piechart"></i>
-                          <span>Statistiques</span>
-                      </a>               
-                  </li>
-                  
                   <li>
                       <a href="profil.php" class="">
                           <i class="icon_documents_alt"></i>
@@ -136,16 +177,76 @@
           <section class="wrapper">
 		  <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header"><i class="fa fa fa-bars"></i> Pages</h3>
+					<h3 class="page-header"><i class="fa fa fa-bars"></i> Liste des évènements</h3>
 					<ol class="breadcrumb">
-						<li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
-						<li><i class="fa fa-bars"></i>Pages</li>
-						<li><i class="fa fa-square-o"></i>Pages</li>
+						<li><i class="fa fa-home"></i><a href="index.php">Accueil</a></li>
+						<li><i class="fa fa-bars"></i>Evenements</li>
+						<li><i class="fa fa-square-o"></i>Liste des évènements</li>
 					</ol>
 				</div>
 			</div>
               <!-- page start-->
-              Page content goes here
+              <?php
+                if ($_SESSION['role'] == 1 || $_SESSION['role'] == 2) { ?>
+                  <div class="form-group">
+                  <label class="col-md-4 control-label" for="group_event">Promotion</label>
+                  <div class="col-md-4">
+
+                    <select id="group_event" name="promotion_id" class="form-control">
+                      <?php $value = 0;
+                       foreach ($promotions as $promotion) {
+                       $value ++; ?>
+                        <option value="<?php echo $value ?>"><?php echo $promotion['title']; ?></option>
+                     <?php } ?>
+                      
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-12">
+                  </div>
+                </div><?php
+                } ?>
+                
+
+              <div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <table class="table table-striped table-advance table-hover">
+                           <tbody>
+                              <tr>
+                                 <th><i class="icon_profile"></i> Professeur</th>
+                                 <th><i class="icon_profile"></i> Titre</th>
+                                 <th><i class="icon_profile"></i> Description</th>
+                                 <th><i class="icon_calendar"></i> Debut</th>
+                                 <th><i class="icon_calendar"></i> Fin</th>
+                                 <th><i class="icon_profile"></i> Charge</th>
+                                 <th><i class="icon_cogs"></i> Action</th>
+                              </tr>
+                               <?php foreach ($events as $event) { ?>
+                                <tr>
+                                 <td><?php echo $event['first_name'].' '.$event['last_name'];?></td>
+                                 <td><?php echo $event['title'];?></td>
+                                 <td><?php echo $event['title'];?>description</td>
+                                 <td><?php echo $event['start_date'];?></td>
+                                 <td><?php echo $event['end_date'];?></td>
+                                 <td><?php echo $event['hoursOfWork'];?></td>
+                                 <td>
+                                  <div class="btn-group">
+                                      <a class="btn btn-primary" name="action" value="view" href="#"><i class="icon_plus_alt2"></i></a>
+                                      <a class="btn btn-success" name="action" value="update" href="#"><i class="icon_check_alt2"></i></a>
+                                      <a class="btn btn-danger" name="action" value="delete" href="#"><i class="icon_close_alt2"></i></a>
+                                  </div>
+                                  </td>
+                              </tr>
+                             <?php }?>
+                              
+                           </tbody>
+                        </table>
+                      </section>
+                  </div>
+              </div>
               <!-- page end-->
           </section>
       </section>

@@ -31,6 +31,7 @@
 				$_SESSION['first_name']=$donnees[0]['first_name'];
 				$_SESSION['last_name']=$donnees[0]['last_name'];
 				$_SESSION['role']=$donnees[0]['role'];
+				$_SESSION['id_promotion']=$donnees[0]['id_promotion'];
 				$_SESSION['promotion']=$donnees[0]['title'];
 				$_SESSION['group']=$donnees[0]['group'];
 				$_SESSION['specialization']=$donnees[0]['specialization'];
